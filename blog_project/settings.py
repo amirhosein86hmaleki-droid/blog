@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-k=pj3=2#n-)3ig5#fp+%x!)d-f7xkd7l^e_o8tro%q_hsdhjp2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,6 +40,14 @@ INSTALLED_APPS = [
     #my app
     'home_app.apps.HomeAppConfig',
     'account.apps.AccountConfig',
+    'blog.apps.BlogConfig',
+    'django_social_share',
+
+
+    'django_cleanup.apps.CleanupConfig',
+
+    'django_render_partial'
+
 ]
 
 MIDDLEWARE = [
@@ -62,9 +70,11 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'context_processors.context_processors.recent_articles',
             ],
         },
     },
@@ -108,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
@@ -119,7 +129,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 STATICFILES_DIRS =[os.path.join(BASE_DIR, "static")]
+MEDIA_ROOT =os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
