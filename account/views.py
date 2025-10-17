@@ -1,20 +1,21 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login,logout
-
+from.forms import LoginForm,UserEditForm
 # Create your views here.
 def user_login(request):
     if request.user.is_authenticated == True:
         return redirect('home_app:home')
 
     if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('home_app:home')
-    return render(request, "account/login.html")
+      form = LoginForm(request.POST)
+      if form.is_valid():
+          user =User.objects.get(username=form.cleaned_data.get('username'))
+          login(request, user)
+          return redirect('home_app:home')
+    else:
+        form=LoginForm()
+    return render(request, "account/login.html",{'form':form})
 
 def user_register(request):
     context = {"errors":[]}
@@ -36,6 +37,18 @@ def user_register(request):
         return redirect('home_app:home')
     return render(request,"account/register.html",{})
 
+
+def user_edit(request):
+    user =request.user
+    form =UserEditForm(instance=user)
+    if request.method == "POST":
+        form = UserEditForm(instance=user, data=request.POST)
+        if form.is_valid():
+            form.save()
+    var = {
+        'test':'amirhossein'
+    }
+    return render(request,"account/edit.html",{'form':form,'var':var})
 
 def user_logout(request):
     logout(request)

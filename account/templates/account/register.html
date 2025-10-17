@@ -3,108 +3,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V3</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="{% static "images/icons/favicon.ico" %}"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static "fonts/font-awesome-4.7.0/css/font-awesome.min.css" %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static "fonts/iconic/css/material-design-iconic-font.min.css" %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static "vendor/animate/animate.css" %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static "vendor/css-hamburgers/hamburgers.min.css" %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static "vendor/animsition/css/animsition.min.css" %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static "vendor/select2/select2.min.css" %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static "vendor/daterangepicker/daterangepicker.css" %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static "css/util.css" %}">
-	<link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
-<!--===============================================================================================-->
+    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            overflow: hidden;
+            position: relative;
+        }
+
+        #particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            top: 0;
+            left: 0;
+        }
+
+        .container-login100 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .wrap-login100 {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .login100-form-logo i {
+            font-size: 50px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .login100-form-title {
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+
+        .input100 {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            transition: 0.3s, box-shadow 0.3s;
+        }
+
+        .input100::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input100:focus {
+            border: 1px solid #27ae60;
+            box-shadow: 0 0 10px rgba(39, 174, 96, 0.7);
+        }
+
+        .register-btn {
+            background: #fff;
+            color: #27ae60;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: bold;
+            width: 100%;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .register-btn:hover {
+            background: #f0f0f0;
+            transform: scale(1.03);
+        }
+
+        .login-btn {
+            background: #27ae60;
+            border-radius: 20px;
+            padding: 8px 20px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+            text-decoration: none;
+            transition: 0.3s;
+            width: auto;
+        }
+
+        .login-btn:hover {
+            background: #229954;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+            align-items: center;
+        }
+
+        .text-danger {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #e74c3c;
+        }
+
+        @media (max-width: 480px) {
+            .login-btn, .register-btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 
-	<div class="limiter">
-		<div class="container-login100" style="background-image: url('{% static 'images/bg-01.jpg' %}');">
-			<div class="wrap-login100">
-				<form class="login100-form validate-form" method="post">
-                    {% csrf_token %}
-					<span class="login100-form-logo">
-						<i class="zmdi zmdi-landscape"></i>
-					</span>
+<canvas id="particles"></canvas>
 
-					<span class="login100-form-title p-b-34 p-t-27">
-						register
-					</span>
-                    {% if errors %}
-                        {% for item in errors %}
-                                                <p class="text-danger bg-white rounded mb-2 " style="text-align: center">{{ item }}</p>
-                        {% endfor %}
-                    {% endif %}
-					<div class="wrap-input100 validate-input" data-validate="Enter username">
-                        <input class="input100" type="text" name="username" placeholder="Username" style="background:transparent; color:#fff; border:none; border-bottom:1px solid rgba(255,255,255,0.5); outline:none;">
-                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                    </div>
+<div class="container-login100">
+    <div class="wrap-login100">
+        <form method="post">
+            {% csrf_token %}
+            <span class="login100-form-logo"><i class="zmdi zmdi-landscape"></i></span>
+            <span class="login100-form-title">Register</span>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="email" name="email" placeholder="email">
-						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-					</div>
+            {% if errors %}
+                {% for item in errors %}
+                    <p class="text-danger">{{ item }}</p>
+                {% endfor %}
+            {% endif %}
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="password" name="password1" placeholder="enter Password">
-						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-					</div>
+            <input class="input100" type="text" name="username" placeholder="Username">
+            <input class="input100" type="email" name="email" placeholder="Email">
+            <input class="input100" type="password" name="password1" placeholder="Password">
+            <input class="input100" type="password" name="password2" placeholder="Repeat Password">
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="password" name="password2" placeholder="repeat password">
-						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-					</div>
+            <div class="button-group">
+                <button class="register-btn" type="submit">Register</button>
+                <a href="/login" class="login-btn">Login</a>
+            </div>
+        </form>
+    </div>
+</div>
 
+<script>
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    let mouse = {x: null, y: null, radius: 120};
 
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							register
-						</button>
-					</div>
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-					<div class="text-center p-t-90">
-						<a class="txt1" href="/login">
-                            Login
-						</a>
-					</div>
-                    {% csrf_token %}
-				</form>
-			</div>
-		</div>
-	</div>
+    window.addEventListener('mousemove', e => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+    });
+    window.addEventListener('touchmove', e => {
+        if (e.touches.length > 0) {
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+        }
+    });
 
+    class Particle {
+        constructor(x, y, size, speedX, speedY) {
+            this.x = x;
+            this.y = y;
+            this.size = size;
+            this.speedX = speedX;
+            this.speedY = speedY;
+            this.baseSize = size;
+            this.alpha = Math.random() * 0.8 + 0.2;
+        }
 
-	<div id="dropDownSelect1"></div>
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
 
-<!--===============================================================================================-->
-	<script src="{% static  "vendor/jquery/jquery-3.2.1.min.js" %}"></script>
-<!--===============================================================================================-->
-	<script src="{% static  "vendor/animsition/js/animsition.min.js" %}"></script>
-<!--===============================================================================================-->
-	<script src="{% static  "vendor/bootstrap/js/popper.js" %}"></script>
-	<script src="{% static  "vendor/bootstrap/js/bootstrap.min.js" %}"></script>
-<!--===============================================================================================-->
-	<script src="{% static  "vendor/select2/select2.min.js" %}"></script>
-<!--===============================================================================================-->
-	<script src="{% static  "vendor/daterangepicker/moment.min.js" %}"></script>
-	<script src="{% static  "vendor/daterangepicker/daterangepicker.js" %}"></script>
-<!--===============================================================================================-->
-	<script src="{% static  "vendor/countdowntime/countdowntime.js" %}"></script>
-<!--===============================================================================================-->
-	<script src="{% static  "js/main.js" %}"></script>
+            if (mouse.x && mouse.y) {
+                let dx = mouse.x - this.x, dy = mouse.y - this.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < mouse.radius) {
+                    let angle = Math.atan2(dy, dx);
+                    let force = (mouse.radius - dist) / mouse.radius;
+                    this.x -= Math.cos(angle) * force * 5;
+                    this.y -= Math.sin(angle) * force * 5;
+                    this.size = this.baseSize * 1.5;
+                } else {
+                    this.size = this.baseSize;
+                }
+            }
+        }
+
+        draw() {
+            ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+            ctx.shadowColor = 'rgba(255,255,255,0.7)';
+            ctx.shadowBlur = 6;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function init() {
+        particlesArray = [];
+        for (let i = 0; i < 80; i++) {
+            let size = Math.random() * 3 + 1;
+            let x = Math.random() * canvas.width;
+            let y = Math.random() * canvas.height;
+            let speedX = (Math.random() - 0.5) * 0.5;
+            let speedY = (Math.random() - 0.5) * 0.5;
+            particlesArray.push(new Particle(x, y, size, speedX, speedY));
+        }
+    }
+
+    function connect() {
+        for (let a = 0; a < particlesArray.length; a++) {
+            for (let b = a; b < particlesArray.length; b++) {
+                let dx = particlesArray[a].x - particlesArray[b].x;
+                let dy = particlesArray[a].y - particlesArray[b].y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 100) {
+                    ctx.strokeStyle = `rgba(255,255,255,${1 - dist / 120})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particlesArray.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        connect();
+        requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        init();
+    });
+</script>
 
 </body>
 </html>

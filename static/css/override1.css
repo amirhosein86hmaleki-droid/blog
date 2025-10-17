@@ -1,0 +1,9 @@
+@font-face {
+    font-family:melika_font ;
+    src: url("../fonts/melika_font.woff");
+    font-weight: normal;
+    font-style: normal;
+}
+ *{
+     font-family: melika_font;
+ }

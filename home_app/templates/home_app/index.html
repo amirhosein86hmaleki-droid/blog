@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load filters %}
 {% load render_partial %}
 {% load social_share %}
+{% load my_templatetags %}
 {% block title %}
     Home
 {% endblock %}
@@ -42,9 +44,10 @@
                     <div class="main-content">
                         <div class="row">
                             <div class="col-lg-8">
-                                <span>Stand Blog HTML5 Template</span>
-                                <h4>Creative HTML Template For Bloggers!</h4>
+                                <span>{% current_time "%Y-%m-%d" %}</span>
+                                <h4>{% show_result "amir" %}</h4>
                             </div>
+                                <span>{% include 'account/menu.html' %}</span>
                             <div class="col-lg-4">
                                 <div class="main-button">
                                     <a rel="nofollow" href="https://templatemo.com/tm-551-stand-blog" target="_parent">Download
@@ -79,7 +82,7 @@
                                                 <li><a href="#">{{ article.created }}</a></li>
                                                 <li><a href="#">12 Comments</a></li>
                                             </ul>
-                                            <p>{{ article.body }}</p>
+                                            <p>{{ article.body|truncatewords:30 }}</p>
                                             <div class="post-options">
                                                 <div class="row">
                                                     <div class="col-6">

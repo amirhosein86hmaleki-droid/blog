@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأیید حذف</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --danger: #e63946;
+            --success: #2a9d8f;
+            --dark: #2b2d42;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .confirmation-container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transform: translateY(0);
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .confirmation-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .confirmation-header {
+            background: linear-gradient(135deg, var(--danger), #ff6b6b);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .warning-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .confirmation-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .confirmation-header p {
+            opacity: 0.9;
+            font-size: 15px;
+        }
+
+        .confirmation-body {
+            padding: 30px;
+        }
+
+        .object-display {
+            background-color: #fff5f5;
+            border: 1px solid #ffcccc;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+            color: var(--danger);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .object-display:hover {
+            background-color: #ffebee;
+            transform: scale(1.01);
+        }
+
+        .object-display:before {
+            content: '"';
+            font-size: 24px;
+            color: #ff9999;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+        }
+
+        .object-display:after {
+            content: '"';
+            font-size: 24px;
+            color: #ff9999;
+            position: absolute;
+            left: 15px;
+            bottom: 10px;
+        }
+
+        .confirmation-form {
+            margin-top: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: #fafafa;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            outline: none;
+            background-color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(to right, var(--danger), #ff6b6b);
+            color: white;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+        }
+
+        .btn-confirm:hover {
+            background: linear-gradient(to right, #d32f2f, #e53935);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.4);
+        }
+
+        .btn-cancel {
+            background: white;
+            color: var(--gray);
+            border: 1px solid #e0e0e0;
+        }
+
+        .btn-cancel:hover {
+            background: #f5f5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .additional-info {
+            background-color: #e3f2fd;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 25px;
+            border-right: 4px solid var(--primary);
+        }
+
+        .additional-info h3 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .additional-info p {
+            color: #1565c0;
+            font-size: 14px;
+        }
+
+        .confirmation-footer {
+            padding: 15px 30px;
+            background-color: #f8f9fa;
+            text-align: center;
+            color: var(--gray);
+            font-size: 14px;
+            border-top: 1px solid #eaeaea;
+        }
+
+        @media (max-width: 576px) {
+            .confirmation-container {
+                border-radius: 15px;
+            }
+
+            .confirmation-header {
+                padding: 20px;
+            }
+
+            .confirmation-body {
+                padding: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <div class="confirmation-header">
+            <i class="fas fa-exclamation-triangle warning-icon"></i>
+            <h1>تأیید حذف</h1>
+            <p>این عمل غیرقابل بازگشت است</p>
+        </div>
+
+        <div class="confirmation-body">
+            <p>آیا از حذف این مورد اطمینان دارید؟</p>
+
+            <div class="object-display">
+                {{ object }}
+            </div>
+
+            <form method="post" class="confirmation-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    {{ form }}
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-cancel">
+                        <i class="fas fa-times"></i>
+                        انصراف
+                    </button>
+                    <input type="submit" value="حذف" class="btn btn-confirm">
+                </div>
+            </form>
+
+            <div class="additional-info">
+                <h3><i class="fas fa-info-circle"></i> توجه</h3>
+                <p>اطلاعات حذف شده قابل بازیابی نیستند. لطفاً قبل از ادامه از تصمیم خود اطمینان حاصل کنید.</p>
+            </div>
+        </div>
+
+        <div class="confirmation-footer">
+            <p>سیستم مدیریت محتوا - ©2025</p>
+        </div>
+    </div>
+
+    <script>
+        // افزودن تعاملات ساده
+        document.addEventListener('DOMContentLoaded', function() {
+            const cancelBtn = document.querySelector('.btn-cancel');
+            const confirmBtn = document.querySelector('.btn-confirm');
+
+            cancelBtn.addEventListener('click', function() {
+                // در اینجا می‌توانید کاربر را به صفحه قبلی هدایت کنید
+                // window.history.back();
+                alert('عملیات حذف لغو شد.');
+            });
+
+            confirmBtn.addEventListener('click', function(e) {
+                // نمایش تأیید نهایی قبل از ارسال فرم
+                if(!confirm('آیا مطمئن هستید که می‌خواهید این مورد را حذف کنید؟')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

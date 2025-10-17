@@ -46,7 +46,8 @@ INSTALLED_APPS = [
 
     'django_cleanup.apps.CleanupConfig',
 
-    'django_render_partial'
+    'django_render_partial',
+    'widget_tweaks',
 
 ]
 
@@ -116,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-ir'
 
 TIME_ZONE = 'Asia/Tehran'
 

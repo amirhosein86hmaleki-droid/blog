@@ -35,7 +35,7 @@
                                    {% else %}
                                        <span><img src="{% static 'images/icons/images (1).png' %}" width="25px"  height="25px" style="border-radius: 100%" alt="" class="mt-1"></span>
                                    {% endif %}
-                                   <a class="nav-link" href="">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+                                   <a class="nav-link" href="{% url "account:edit" %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
                                {% else %}
                                    <a class="nav-link" href="">{{ request.user.username }}</a>
                                {% endif %}
